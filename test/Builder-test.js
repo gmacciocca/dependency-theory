@@ -1,5 +1,5 @@
 import { Builder } from "../src";
-import Container from "../src/Container";
+import Factory from "../src/Factory";
 
 describe("Builder", function() {
     beforeEach(() => {
@@ -29,14 +29,9 @@ describe("Builder", function() {
             }
         }
 
-        this.savedContainerPrototype = Container.prototype;
-        Container.prototype = MockedContainer.prototype;
+        Factory.createContainer = (...args) => new MockedContainer(...args);
 
         this.builder = new Builder();
-    });
-
-    afterEach(() => {
-        Container.prototype = this.savedContainerPrototype;
     });
 
     it("implements interface", () => {
