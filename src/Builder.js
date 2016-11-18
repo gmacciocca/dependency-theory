@@ -1,9 +1,8 @@
-import DepError from "./DepError";
-import Container from "./Container";
+import Factory from "./Factory";
 
 export default class Builder {
     constructor() {
-        this._container = new Container();
+        this._container = Factory.createContainer();
     }
 
     addComponent(...args) {
@@ -16,7 +15,7 @@ export default class Builder {
                 this._createDepencencyClasses();
                 resolve(this._container.roles);
             } catch (err) {
-                reject(new DepError("DEP.BUILD_ERROR", {
+                reject(Factory.createDepError("DEP.BUILD_ERROR", {
                     message: "Dependency Builder: error creating components.",
                     originalError: err
                 }));
